@@ -5,16 +5,16 @@ public class SpellChecker {
 
     public SpellChecker(String filename) {
         this.filename = filename;
-        dicionario = new DictReader(filename); // Inicialize no construtor
+        dicionario = new DictReader(this.filename); // Inicialize no construtor
     }
 
     public static void main(String[] args) throws Exception {
-        SpellChecker spellChecker = new SpellChecker("words.txt");
-        spellChecker.getNumberOfWords();
+        SpellChecker spellChecker = new SpellChecker("./words.txt");
+        System.err.println("O total de palavras é: " + spellChecker.getNumberOfWords() + " palavras");
     }
 
     public int getNumberOfWords() {
-        System.out.println(dicionario.getDictionary());
+        this.numberOfWords = dicionario.getDictionary().size();
         return numberOfWords;
     }
 }

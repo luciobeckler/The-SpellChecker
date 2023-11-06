@@ -15,15 +15,15 @@ import java.io.IOException;
  * @version 2006-10-24
  */
 public class DictReader {
-  private ArrayList<String> dict;
+  public ArrayList<String> dict;
   private String filename;
 
   /**
    * Create a DictReader instance from a file.
    */
   public DictReader(String filename) {
-    loadDictionary(filename);
     this.filename = filename;
+    loadDictionary(this.filename);
   }
 
   /**
