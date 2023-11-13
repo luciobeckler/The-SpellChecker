@@ -957,6 +957,7 @@ Alulim
 Alumel
 Alumnol
 Alundum
+Aluno
 Alur
 Alvah
 Alvan
@@ -45409,7 +45410,6 @@ booger
 boogiewoogie
 boohoo
 boojum
-book
 bookable
 bookbinder
 bookbindery
