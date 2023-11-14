@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SpellChecker {
     private String filename;
@@ -13,6 +14,9 @@ public class SpellChecker {
     private String newWordToRemove;
     private String isWordPalindrome;
     private String isAnagram;
+    private String word1;
+    private String word2;
+    private ArrayList<String> dictionaryToCompare;
 
     public SpellChecker(String filename) {
         this.filename = filename;
@@ -24,6 +28,9 @@ public class SpellChecker {
         this.newWordToRemove = "book";
         this.isWordPalindrome = "dog";
         this.isAnagram = "listen";
+        this.word1 = "true";
+        this.word2 = "false";
+        this.dictionaryToCompare = new ArrayList<>(Arrays.asList("Teste", "Bool", "false", "palavraQueNaoExiste"));
     }
 
     public void setDicionario() throws Exception {
@@ -62,7 +69,6 @@ public class SpellChecker {
         System.err.println("\n\n");
 
         spellChecker.insert(spellChecker.newWord); // ! Questão 3
-
         spellChecker.remove(spellChecker.newWordToRemove); // ! Questão 3
 
         // ! Questão 4
@@ -71,6 +77,14 @@ public class SpellChecker {
         // ! Questão 4
         System.out.println("A palavra: " + spellChecker.isAnagram + "é um anagrama de quais palavras? "
                 + spellChecker.anagrams(spellChecker.isAnagram));
+        // ! Questão 4
+        System.out.println("Entre as palavras a seguir \"" + spellChecker.dictionaryToCompare
+                + "\" , as seguintes palavras não estão presentes no dicionário:"
+                + spellChecker.difference(spellChecker.dictionaryToCompare));
+
+        // ! Questão 5
+        System.out.println("As palavras \"" + spellChecker.word1 + "\" e \"" + spellChecker.word2 + " estão a "
+                + spellChecker.distance(spellChecker.word1, spellChecker.word2) + " de distância.");
 
     }
 
@@ -80,11 +94,12 @@ public class SpellChecker {
     }
 
     public boolean isKnownWord(String word) {
-        if (!this.dicionario.getDictionary().contains(word))
-            return false;
-        else
-            return true;
-
+        for (int i = 0; i < dicionario.getDictionary().size(); i++) {
+            if (dicionario.getDictionary().get(i).equalsIgnoreCase(word)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean allKnown(ArrayList<String> words) {
@@ -110,7 +125,7 @@ public class SpellChecker {
         ArrayList<String> result = new ArrayList<>();
 
         dicionario.getDictionary().forEach(palavra -> {
-            if (palavra.toLowerCase().equals(text.toLowerCase())) {
+            if (palavra.toLowerCase().contains(text.toLowerCase())) {
                 result.add(palavra);
             }
         });
@@ -179,4 +194,37 @@ public class SpellChecker {
         return anagrams;
     }
 
+    // !Questão 4: Rodar um for nos dois dicionários com o mesmo index e levando em
+    // consideração que os dois estão
+    // ! em ordem alfabética as palavras repetidas devem bater, caso não bater
+    // adicione a plavra de um no outro
+
+    public ArrayList<String> difference(ArrayList<String> dictionaryToCompare) {
+        ArrayList<String> listToCompare = new ArrayList<>();
+
+        for (int i = 0; i < dictionaryToCompare.size(); i++) {
+
+            if (this.isKnownWord(dictionaryToCompare.get(i))) {
+                listToCompare.add(dictionaryToCompare.get(i));
+            }
+        }
+        return listToCompare;
+    }
+
+    public int distance(String word1, String word2) {
+        ArrayList<String> listWord = new ArrayList<>(Arrays.asList(word1, word2));
+        List<Integer> listIndex = new ArrayList<>();
+
+        listWord.sort(null);
+
+        for (int i = 0; i < dicionario.getDictionary().size(); i++) {
+            if (listWord.get(0).equals(dicionario.getDictionary().get(i))) {
+                listIndex.add(i);
+            }
+            if (listWord.get(1).equals(dicionario.getDictionary().get(i))) {
+                listIndex.add(i);
+            }
+        }
+        return listIndex.get(1) - listIndex.get(0);
+    }
 }
