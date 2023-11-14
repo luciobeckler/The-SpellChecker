@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class SpellChecker {
     private String filename;
@@ -28,7 +27,7 @@ public class SpellChecker {
         this.newWordToRemove = "book";
         this.isWordPalindrome = "dog";
         this.isAnagram = "listen";
-        this.word1 = "true";
+        this.word1 = "teste";
         this.word2 = "false";
         this.dictionaryToCompare = new ArrayList<>(Arrays.asList("Teste", "Bool", "false", "palavraQueNaoExiste"));
     }
@@ -83,9 +82,9 @@ public class SpellChecker {
                 + spellChecker.difference(spellChecker.dictionaryToCompare));
 
         // ! Questão 5
-        System.out.println("As palavras \"" + spellChecker.word1 + "\" e \"" + spellChecker.word2 + " estão a "
-                + spellChecker.distance(spellChecker.word1, spellChecker.word2) + " de distância.");
-
+        System.out
+                .println("O custo entre as palavras \"" + spellChecker.word1 + "\" e \"" + spellChecker.word2 + "\" é: "
+                        + spellChecker.distance(spellChecker.word1, spellChecker.word2) + ".");
     }
 
     public int getNumberOfWords() {
@@ -212,19 +211,18 @@ public class SpellChecker {
     }
 
     public int distance(String word1, String word2) {
-        ArrayList<String> listWord = new ArrayList<>(Arrays.asList(word1, word2));
-        List<Integer> listIndex = new ArrayList<>();
+        int distance = 0;
 
-        listWord.sort(null);
-
-        for (int i = 0; i < dicionario.getDictionary().size(); i++) {
-            if (listWord.get(0).equals(dicionario.getDictionary().get(i))) {
-                listIndex.add(i);
-            }
-            if (listWord.get(1).equals(dicionario.getDictionary().get(i))) {
-                listIndex.add(i);
+        if (word1.length() != word2.length()) {
+            System.out.println("Tamanho das palavras é diferente");
+            return -1;
+        } else {
+            for (int i = 0; i < word1.length(); i++) {
+                if (word1.charAt(i) != word2.charAt(i)) {
+                    distance++;
+                }
             }
         }
-        return listIndex.get(1) - listIndex.get(0);
+        return distance;
     }
 }
